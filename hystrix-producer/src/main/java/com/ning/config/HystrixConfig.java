@@ -14,18 +14,30 @@ import org.springframework.web.client.RestTemplate;
  **/
 @Controller
 public class HystrixConfig {
+    /**
+     *  //用来拦截处理HystrixCommand注解
+     * @return
+     */
     @Bean
     public HystrixCommandAspect hystrixAspect() {
         return new HystrixCommandAspect();
     }
-        //用来像监控中心Dashboard发送stream信息
-        @Bean
-        public ServletRegistrationBean hystrixMetricsStreamServlet() {
+
+    /**
+     * 用来像监控中心Dashboard发送stream信息
+     * @return
+     */
+    @Bean
+    public ServletRegistrationBean hystrixMetricsStreamServlet() {
         ServletRegistrationBean registration = new ServletRegistrationBean(new HystrixMetricsStreamServlet());
         registration.addUrlMappings("/hystrix.stream");
         return registration;
     }
 
+    /**
+     * 注入spring的，用于发送RESTFul请求的工具Template
+     * @return
+     */
     @Bean
     @LoadBalanced
     public RestTemplate restTemplate() {
