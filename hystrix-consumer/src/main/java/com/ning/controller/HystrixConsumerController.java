@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Random;
 
 /**
  * author JayNing
@@ -29,4 +30,14 @@ public class HystrixConsumerController {
         return JSONObject.toJSONString(user);
     }
 
+
+    /**
+     * 为了请求测试Hystrix请求缓存提供的返回随机数的接口
+     */
+    @GetMapping("/cache")
+    public Integer getRandomInteger(){
+        Random random = new Random();
+        int randomInt = random.nextInt(99999);
+        return randomInt;
+    }
 }
